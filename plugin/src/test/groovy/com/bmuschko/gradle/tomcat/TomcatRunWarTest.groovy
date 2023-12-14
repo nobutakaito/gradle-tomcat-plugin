@@ -158,6 +158,9 @@ class TomcatRunWarTest {
 
     private File createWebAppDir() {
         File webAppDir = new File(testDir, "webApp")
+        if(webAppDir.exists()) {
+            return webAppDir
+        }
         boolean success = webAppDir.mkdirs()
 
         if(!success) {
