@@ -8,6 +8,7 @@ sourceSets {
 }
 
 task integrationTest(type: Test) {
+    useJUnitPlatform()
     description = 'Runs the integration tests.'
     group = 'verification'
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
