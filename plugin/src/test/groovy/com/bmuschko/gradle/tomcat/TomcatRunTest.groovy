@@ -23,11 +23,12 @@ import org.gradle.api.InvalidUserDataException
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.gradle.util.GFileUtils
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
-import static org.junit.Assert.fail
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test case for TomcatRun task.
@@ -37,13 +38,13 @@ class TomcatRunTest {
     private Project project
     private TomcatRun tomcatRun
 
-    @Before
+    @BeforeEach
     void setUp() {
         project = ProjectBuilder.builder().withProjectDir(testDir).build()
         tomcatRun = project.tasks.create(TomcatPlugin.TOMCAT_RUN_TASK_NAME, TomcatRun.class)
     }
 
-    @After
+    @AfterEach
     void tearDown() {
         tomcatRun = null
 
@@ -122,7 +123,7 @@ class TomcatRunTest {
         assert tomcatRun.getKeystorePass() == null
     }
 
-    @Test(expected = InvalidUserDataException.class)
+    @Test
     void testValidateConfigurationForEnabledSSLButOnlyKeystoreFileConfigured() {
         File webAppSourceDir = createWebAppSourceDirectory()
         tomcatRun.setWebAppSourceDirectory webAppSourceDir
@@ -130,10 +131,10 @@ class TomcatRunTest {
         tomcatRun.setHttpProtocol TomcatPluginExtension.DEFAULT_PROTOCOL_HANDLER
         tomcatRun.setHttpsProtocol TomcatPluginExtension.DEFAULT_PROTOCOL_HANDLER
         tomcatRun.enableSSL = true
-        tomcatRun.validateConfiguration()
+        assertThrows(InvalidUserDataException.class, () -> tomcatRun.validateConfiguration());
     }
 
-    @Test(expected = InvalidUserDataException.class)
+    @Test
     void testValidateConfigurationForEnabledSSLButOnlyKeystorePasswordConfigured() {
         File webAppSourceDir = createWebAppSourceDirectory()
         tomcatRun.setWebAppSourceDirectory webAppSourceDir
@@ -141,7 +142,7 @@ class TomcatRunTest {
         tomcatRun.setHttpProtocol TomcatPluginExtension.DEFAULT_PROTOCOL_HANDLER
         tomcatRun.setHttpsProtocol TomcatPluginExtension.DEFAULT_PROTOCOL_HANDLER
         tomcatRun.enableSSL = true
-        tomcatRun.validateConfiguration()
+        assertThrows(InvalidUserDataException.class, () -> tomcatRun.validateConfiguration());
     }
 
     @Test
@@ -172,7 +173,7 @@ class TomcatRunTest {
         assert tomcatRun.getTruststorePass() == null
     }
 
-    @Test(expected = InvalidUserDataException.class)
+    @Test
     void testValidateConfigurationForEnabledSSLButOnlyTruststoreFileConfigured() {
         File webAppSourceDir = createWebAppSourceDirectory()
         tomcatRun.setWebAppSourceDirectory webAppSourceDir
@@ -180,10 +181,10 @@ class TomcatRunTest {
         tomcatRun.setHttpProtocol TomcatPluginExtension.DEFAULT_PROTOCOL_HANDLER
         tomcatRun.setHttpsProtocol TomcatPluginExtension.DEFAULT_PROTOCOL_HANDLER
         tomcatRun.enableSSL = true
-        tomcatRun.validateConfiguration()
+        assertThrows(InvalidUserDataException.class, () -> tomcatRun.validateConfiguration());
     }
 
-    @Test(expected = InvalidUserDataException.class)
+    @Test
     void testValidateConfigurationForEnabledSSLButOnlyTruststorePasswordConfigured() {
         File webAppSourceDir = createWebAppSourceDirectory()
         tomcatRun.setWebAppSourceDirectory webAppSourceDir
@@ -191,7 +192,7 @@ class TomcatRunTest {
         tomcatRun.setHttpProtocol TomcatPluginExtension.DEFAULT_PROTOCOL_HANDLER
         tomcatRun.setHttpsProtocol TomcatPluginExtension.DEFAULT_PROTOCOL_HANDLER
         tomcatRun.enableSSL = true
-        tomcatRun.validateConfiguration()
+        assertThrows(InvalidUserDataException.class, () -> tomcatRun.validateConfiguration());
     }
 
     @Test
@@ -209,7 +210,7 @@ class TomcatRunTest {
         assert tomcatRun.getTruststorePass() == 'pwd'
     }
     
-    @Test(expected = InvalidUserDataException.class)
+    @Test
     void testValidateConfigurationForEnabledSSLButIllegalClientAuthValue() {
         File webAppSourceDir = createWebAppSourceDirectory()
         tomcatRun.setWebAppSourceDirectory webAppSourceDir
@@ -219,7 +220,7 @@ class TomcatRunTest {
         tomcatRun.setHttpsProtocol TomcatPluginExtension.DEFAULT_PROTOCOL_HANDLER
         tomcatRun.enableSSL = true
         tomcatRun.clientAuth = "This is not a valid clientAuth value"
-        tomcatRun.validateConfiguration()
+        assertThrows(InvalidUserDataException.class, () -> tomcatRun.validateConfiguration());
     }
     
     @Test

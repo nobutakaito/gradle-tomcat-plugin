@@ -29,6 +29,8 @@ subprojects {
             exclude group: 'org.codehaus.groovy'
         }
         testImplementation 'org.apache.commons:commons-lang3:3.3'
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     }
 }
 

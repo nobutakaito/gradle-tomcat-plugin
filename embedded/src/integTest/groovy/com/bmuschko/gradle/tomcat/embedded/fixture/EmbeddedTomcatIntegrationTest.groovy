@@ -4,13 +4,14 @@ import com.bmuschko.gradle.tomcat.embedded.TomcatServer
 import com.bmuschko.gradle.tomcat.embedded.TomcatUser
 import com.bmuschko.gradle.tomcat.embedded.TomcatVersion
 import com.bmuschko.gradle.tomcat.fixture.AvailablePortFinder
-import org.junit.Rule
-import org.junit.rules.TemporaryFolder
 import spock.lang.Specification
+import spock.lang.TempDir
+
+import java.nio.file.Path
 
 abstract class EmbeddedTomcatIntegrationTest extends Specification {
-    @Rule
-    TemporaryFolder temporaryFolder = new TemporaryFolder()
+    @TempDir
+    Path tempDir;
 
     TomcatServer tomcatServer
     Integer port
@@ -34,7 +35,7 @@ abstract class EmbeddedTomcatIntegrationTest extends Specification {
     protected abstract void configureTomcatServer()
 
     private File getTomcatHomeDir() {
-        temporaryFolder.newFolder(tomcatServer.version.description)
+        return tempDir.resolve(tomcatServer.version.description).toFile();
     }
 
     private TomcatVersion getTomcatVersion() {

@@ -21,14 +21,15 @@ import com.bmuschko.gradle.tomcat.embedded.TomcatServer
 import com.bmuschko.gradle.tomcat.extension.TomcatPluginExtension
 import com.bmuschko.gradle.tomcat.tasks.TomcatRunWar
 import org.gradle.testfixtures.ProjectBuilder
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
 
-import static org.junit.Assert.fail
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Test case for TomcatRunWar task.
@@ -38,13 +39,13 @@ class TomcatRunWarTest {
     private Project project
     private TomcatRunWar tomcatRunWar
 
-    @Before
+    @BeforeEach
     void setUp() {
         project = ProjectBuilder.builder().withProjectDir(testDir).build()
         tomcatRunWar = project.tasks.create(TomcatPlugin.TOMCAT_RUN_WAR_TASK_NAME, TomcatRunWar.class)
     }
 
-    @After
+    @AfterEach
     void tearDown() {
         tomcatRunWar = null
 
@@ -164,7 +165,7 @@ class TomcatRunWarTest {
         boolean success = webAppDir.mkdirs()
 
         if(!success) {
-            fail "Unable to create web app directory"
+            fail("Unable to create web app directory");
         }
 
         webAppDir
