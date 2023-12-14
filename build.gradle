@@ -16,9 +16,11 @@ subprojects {
     apply from: "$rootProject.projectDir/gradle/integration-test.gradle"
     apply from: "$rootProject.projectDir/gradle/functional-test.gradle"
 
-    def compatibilityVersion = JavaVersion.VERSION_1_8
-    sourceCompatibility = compatibilityVersion
-    targetCompatibility = compatibilityVersion
+    java {
+        def compatibilityVersion = JavaVersion.VERSION_1_8
+        sourceCompatibility = compatibilityVersion
+        targetCompatibility = compatibilityVersion
+    }
 
     repositories {
         mavenCentral()
