@@ -52,7 +52,7 @@ class TomcatPluginTest extends Specification {
             task instanceof TomcatRun
             task.description == 'Uses your files as and where they are and deploys them to Tomcat.'
             task.group == WarPlugin.WEB_APP_GROUP
-            task.contextPath == project.tasks.getByName(WarPlugin.WAR_TASK_NAME).baseName
+            task.contextPath == project.tasks.getByName(WarPlugin.WAR_TASK_NAME).archiveBaseName.get()
             task.httpPort == extension.httpPort
             task.httpsPort == extension.httpsPort
             task.stopPort == extension.stopPort
@@ -74,7 +74,7 @@ class TomcatPluginTest extends Specification {
             task.description == 'Assembles the webapp into a war and deploys it to Tomcat.'
             task.group == WarPlugin.WEB_APP_GROUP
 
-            task.contextPath == project.tasks.getByName(WarPlugin.WAR_TASK_NAME).baseName
+            task.contextPath == project.tasks.getByName(WarPlugin.WAR_TASK_NAME).archiveBaseName.get()
             task.httpPort == extension.httpPort
             task.httpsPort == extension.httpsPort
             task.stopPort == extension.stopPort

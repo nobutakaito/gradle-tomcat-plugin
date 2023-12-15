@@ -46,7 +46,7 @@ class TomcatBasePlugin implements Plugin<Project> {
     private void configureAbstractTomcatTask(Project project) {
         project.tasks.withType(AbstractTomcatRun) {
             conventionMapping.map('tomcatClasspath') { project.configurations.getByName(TOMCAT_CONFIGURATION_NAME).asFileTree }
-            conventionMapping.map('contextPath') { project.tasks.getByName(WarPlugin.WAR_TASK_NAME).baseName }
+            conventionMapping.map('contextPath') { project.tasks.getByName(WarPlugin.WAR_TASK_NAME).archiveBaseName.get() }
         }
     }
 

@@ -26,7 +26,6 @@ import org.gradle.api.Task
 import org.gradle.api.plugins.WarPlugin
 import com.bmuschko.gradle.tomcat.embedded.TomcatUser
 import com.bmuschko.gradle.tomcat.extension.TomcatPluginExtension
-import org.gradle.api.plugins.tomcat.tasks.*
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -53,7 +52,7 @@ class TomcatBasePluginTest extends Specification {
             TomcatPluginExtension extension = new TomcatPluginExtension()
             TomcatRun task = project.task('myTomcatRun', type: TomcatRun)
             task.group == WarPlugin.WEB_APP_GROUP
-            task.contextPath == project.tasks.getByName(WarPlugin.WAR_TASK_NAME).baseName
+            task.contextPath == project.tasks.getByName(WarPlugin.WAR_TASK_NAME).archiveBaseName.get()
             task.httpPort == extension.httpPort
             task.httpsPort == extension.httpsPort
             task.stopPort == extension.stopPort
@@ -73,7 +72,7 @@ class TomcatBasePluginTest extends Specification {
             TomcatPluginExtension extension = new TomcatPluginExtension()
             TomcatRunWar task = project.task('myTomcatRunWar', type: TomcatRunWar)
             task.group == WarPlugin.WEB_APP_GROUP
-            task.contextPath == project.tasks.getByName(WarPlugin.WAR_TASK_NAME).baseName
+            task.contextPath == project.tasks.getByName(WarPlugin.WAR_TASK_NAME).archiveBaseName.get()
             task.httpPort == extension.httpPort
             task.httpsPort == extension.httpsPort
             task.stopPort == extension.stopPort
