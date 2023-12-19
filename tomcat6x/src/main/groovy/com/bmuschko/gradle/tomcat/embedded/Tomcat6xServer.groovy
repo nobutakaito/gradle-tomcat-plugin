@@ -72,7 +72,7 @@ class Tomcat6xServer extends BaseTomcatServerImpl {
     }
 
     @Override
-    void configureAjpConnector(int port, String uriEncoding, String protocolHandlerClassName) {
+    void configureAjpConnector(int port, String uriEncoding, String protocolHandlerClassName, Boolean secretRequired, String secret) {
         def ajpConnector = createConnector(port, uriEncoding, protocolHandlerClassName)
         tomcat.addConnector ajpConnector
     }

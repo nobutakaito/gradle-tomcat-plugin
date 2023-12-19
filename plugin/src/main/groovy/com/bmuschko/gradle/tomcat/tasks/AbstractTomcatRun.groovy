@@ -198,6 +198,13 @@ abstract class AbstractTomcatRun extends Tomcat {
     @Input
     String ajpProtocol = 'org.apache.coyote.ajp.AjpProtocol'
 
+    @Input
+    Boolean ajpSecretRequired = Boolean.FALSE
+
+    @Input
+    @Optional
+    String ajpSecret
+
     /**
      * The list of Tomcat users. Defaults to an empty list.
      */
@@ -334,7 +341,7 @@ abstract class AbstractTomcatRun extends Tomcat {
 
             server.configureContainer()
             server.configureHttpConnector(getHttpPort(), getURIEncoding(), getHttpProtocol())
-            server.configureAjpConnector(getAjpPort(), getURIEncoding(), getAjpProtocol())
+            server.configureAjpConnector(getAjpPort(), getURIEncoding(), getAjpProtocol(), getAjpSecretRequired(), getAjpSecret())
 
             getUsers().each { TomcatUser user ->
                 server.configureUser(user)

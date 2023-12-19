@@ -31,7 +31,7 @@ interface TomcatServer {
     void createContext(String fullContextPath, String webAppPath)
     void configureContainer()
     void configureHttpConnector(int port, String uriEncoding, String protocolHandlerClassName)
-    void configureAjpConnector(int port, String uriEncoding, String protocolHandlerClassName)
+    void configureAjpConnector(int port, String uriEncoding, String protocolHandlerClassName, Boolean secretRequired, String secret)
     void configureHttpsConnector(int port, String uriEncoding, String protocolHandlerClassName, File keystoreFile, String keyPassword)
     void configureHttpsConnector(int port, String uriEncoding, String protocolHandlerClassName, File keystoreFile, String keyPassword, File truststoreFile, String trustPassword, String clientAuth)
     void configureDefaultWebXml(File webDefaultXml)
