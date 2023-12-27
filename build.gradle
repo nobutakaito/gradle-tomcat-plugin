@@ -117,12 +117,6 @@ gradlePlugin {
     website = "https://github.com/nobutakaito/gradle-tomcat-plugin"
     vcsUrl = "https://github.com/nobutakaito/gradle-tomcat-plugin"
 
-    mavenCoordinates {
-        groupId = project.group.toString()
-        artifactId = project.name
-        version = project.version.toString()
-    }
-
     plugins {
         tomcatBasePlugin {
             id = 'nobutakaito.tomcat-base'
